@@ -16,6 +16,9 @@ Text article dataset is sorted into 5 categories namely Sport, Tech, Business, E
 # PROBLEM STATEMENT
 Provided text documents with 5 categories, can we categorize unseen in articles into 5 categories?
 
+Dataset Credit:
+[Credit dataset](https://raw.githubusercontent.com/susanli2016/PyCon-Canada-2019-NLP-Tutorial/master/bbc-text.csv)
+
 # STEP 1 - Data Loading
 
 `df = pd.read_csv(CSV_URL)` 
