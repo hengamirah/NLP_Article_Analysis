@@ -1,8 +1,8 @@
 # NLP_Article_Analysis
- Articles dataset sorted into 5 categories namely Sport, Tech, Business, Entertainment and Politics using Natural Language Processing Approach.
+Text article dataset is sorted into 5 categories namely Sport, Tech, Business, Entertainment and Politics using Natural Language Processing Approach.
 
 # PROBLEM STATEMENT
-Provided text documents that has 5 categories, can we categorize unseen in articles into 5 categories?
+Provided text documents with 5 categories, can we categorize unseen in articles into 5 categories?
 
 # STEP 1 - Data Loading
 
@@ -47,7 +47,8 @@ text=df['text'].values
 
 #2) Remove numerics inside text file using RegEX
 
-`for index, t in enumerate(text):
+```
+for index, t in enumerate(text):
     text[index] = re.sub('.*?',' ',t)
     text[index] =re.sub('[^a-zA-Z]',' ',t).lower().split()
 
@@ -55,7 +56,8 @@ text=df['text'].values
 #Substituting that is not a-z and A-Z  will be replaced with a space
 #Hence, all numeric will be removed so now we have changed every word into lower case and splitted them into a list of words
 
-text[10] #Check for all the words has been split into a list of words with lower case`
+text[10] #Check for all the words has been split into a list of words with lower case
+```
 
 # STEP 4 - Features Selection
 Everything is selected from features since this is NLP data
@@ -94,12 +96,13 @@ np.max(length_of_text) #4469 max value of text`
 #Padding is to make each length to be similar
 ```
 #2) Padding and Truncating
-
-`max_len=380
+```
+max_len=380
 padded_text = pad_sequences(train_sequences, 
                             maxlen=max_len,
                             padding='post',
-                            truncating = 'post')  # so now all rows are in equal length` 
+                            truncating = 'post')  # so now all rows are in equal length
+ ```
 
 
 #4) One Hot Encoding for the Target - category
@@ -110,12 +113,14 @@ category = ohe.fit_transform(np.expand_dims(category,axis=-1))
 
 #5) Train-test-split because this is a classification problem
 
-`X_train,X_test,y_train,y_test = train_test_split(padded_text,
+```
+X_train,X_test,y_train,y_test = train_test_split(padded_text,
                                                  category,
                                                  test_size=0.3,
                                                  random_state=123)
 X_train= np.expand_dims(X_train, axis=-1)
 X_test= np.expand_dims(X_test, axis=-1)`
+```
 
 # STEP 6 - Model Development
 USE LSTM layers, dropout, dense, input, embedding, bidirectional in module_for_article_analysis()
@@ -145,7 +150,8 @@ Visualising Natural Language Processing model
 ![plot_model](statics/Model.png)
 
 Total Parameters: 660,229
-![Total_Params](statics/Total_Params.png)
+
+![Total_Params](statics/Total_Params.PNG)
 
 
 Model Fitting and Testing
@@ -167,9 +173,9 @@ Plot fitted model evaluation using history in module_for_article_analysis()
 
 Plot hist using Tensorboard log directory
 
-![Tensorboard_accuracy](statics/Tensorboard_accuracy.png)
+![Tensorboard_accuracy](statics/Tensorboard_accuracy.PNG)
 
-![Tensorboard_loss](statics/Tensorboard_loss.png)
+![Tensorboard_loss](statics/Tensorboard_loss.PNG)
 
 #Model is showing overfitting when reaching epochs 50 onwards
 
@@ -180,19 +186,25 @@ Evaluate model by plotting graph using ConfusionMatrixDisplay and generate Class
 `Model_Analysis().Model_Evaluation(model,X_test,y_test)`
 
 Confusion Matrix score
-![Confusion_matrix](statics/Confusion_matrix.png)
+
+![Confusion_matrix](statics/Confusion_matrix.PNG)
 
 Confusion Matrix plot
-![Confusion_matrix_plot](statics/Confusion_matrix_plot.png)
+
+![Confusion_matrix_plot](statics/Confusion_matrix_plot.PNG)
 
 Classification Report
-![Classification_Report](statics/F1-score.png)
+
+![Classification_Report](statics/F1-score.PNG)
 
 Accuracy_score
-![Accuracy_score](statics/Accuracy_score.png)
 
-#%% Step 8) Model Saving
-#save NLP model
+![Accuracy_score](statics/Accuracy_score.PNG)
+
+# Step 8) Model Saving
+
+```
+#Save NLP model
 model.save(MODEL_SAVE_PATH)
 
 #save tokenizer
@@ -203,6 +215,7 @@ with open(TOKENIZER_PATH,'w') as file:
 #save One Hot Encoding model
 with open(OHE_PATH,'wb') as file:
     pickle.dump(ohe,file)
+```
 
 # DISCUSSION
 1) Model accuracy by only using 2 LSTM layer will only achieve 29% accuracy
