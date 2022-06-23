@@ -22,9 +22,7 @@ Provided text documents with 5 categories, can we categorize unseen in articles 
 
 # STEP 2 - Data Inspection
 
-`df.head(10)
-df.tail(10)` #There are 2225 dataset in here
-
+There are 2225 dataset in here,
 Create bar plot for category data
 `sns.countplot(df.category)` 
 
@@ -52,7 +50,6 @@ df= df.drop_duplicates() #Remove 99duplicates, left 2126 datas
 df.duplicated().sum() # no more duplicate values
 
 #Extract Features with 5 categories
-
 category =  df['category'].values
 text=df['text'].values 
 ```
@@ -91,22 +88,7 @@ train_sequences = tokenizer.texts_to_sequences(text) #to convert into numbers
 ```
 
 Get the average number of text inside a row for padding
-```
-#Test to see the number of words from one category of text
-#len(train_sequences[0]) #744
-#len(train_sequences[1]) #296
-#len(train_sequences[500])#600
-#len(train_sequences[1500]) #306
 
-length_of_text=[len(i) for i in train_sequences]
-np.median(length_of_text) #334 median value of number of text
-np.mean(length_of_text) #387 mean value of number of text
-np.max(length_of_text) #4469 max value of text`
-
-#Pick the reasonable padding value
-#Median is chosen for this padding values
-#Padding is to make each length to be similar
-```
 #2) Padding and Truncating
 ```
 max_len=380
@@ -136,7 +118,6 @@ X_test= np.expand_dims(X_test, axis=-1)`
 
 # STEP 6 - Model Development
 USE LSTM layers, dropout, dense, input, embedding, bidirectional in module_for_article_analysis()
-
 ```
 nb_features = 380
 output_node=len(y_train[1]) 
@@ -217,16 +198,9 @@ Accuracy_score
 
 ```
 #Save NLP model
-model.save(MODEL_SAVE_PATH)
-
-#save tokenizer
+#save tokenizer using JSON
 token_json = tokenizer.to_json()
-with open(TOKENIZER_PATH,'w') as file:
-    json.dump(token_json,file) # token_json is our dictionary now
-
 #save One Hot Encoding model
-with open(OHE_PATH,'wb') as file:
-    pickle.dump(ohe,file)
 ```
 
 # DISCUSSION
