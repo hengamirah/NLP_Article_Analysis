@@ -47,7 +47,7 @@ df[df.duplicated()] #Extracting the duplicated data
 
 # STEP 3 - Data Cleaning
 
-#1) Remove all the duplicated data
+1) Remove all the duplicated data
 ```
 df= df.drop_duplicates() #Remove 99duplicates, left 2126 datas
 df.duplicated().sum() # no more duplicate values
@@ -57,7 +57,7 @@ category =  df['category'].values
 text=df['text'].values 
 ```
 
-#2) Remove numerics inside text file using RegEX
+2) Remove numerics inside text file using RegEX
 
 ```
 for index, t in enumerate(text):
@@ -76,7 +76,7 @@ Everything is selected from features since this is NLP data
 
 # STEP 5 - Preprocessing
 
-#1) Use Tokenization to make each word return with index
+1) Use Tokenization to make each word return with index
 
 ```
 vocab_size = 400
@@ -92,7 +92,7 @@ train_sequences = tokenizer.texts_to_sequences(text) #to convert into numbers
 
 Get the average number of text inside a row for padding
 
-#2) Padding and Truncating
+2) Padding and Truncating
 ```
 max_len=380
 padded_text = pad_sequences(train_sequences, 
@@ -102,13 +102,13 @@ padded_text = pad_sequences(train_sequences,
  ```
 
 
-#4) One Hot Encoding for the Target - category
+4) One Hot Encoding for the Target - category
 ```
 ohe = OneHotEncoder(sparse=False)
 category = ohe.fit_transform(np.expand_dims(category,axis=-1)) 
 ```
 
-#5) Train-test-split because this is a classification problem
+5) Train-test-split because this is a classification problem
 
 ```
 X_train,X_test,y_train,y_test = train_test_split(padded_text,
@@ -128,11 +128,11 @@ model = Model_Creation().NLP_model(nb_features, output_node,vocab_size,
                                    embedding_dim = 128, drop_rate=0.2, 
                                    num_node= 128 )`
 ```
-#Callbacks
+Callbacks
 
 `tensorboard_callback=TensorBoard(log_dir=LOG_FOLDER_PATH)`
 
-#Compile model
+Compile model
 
 `model.compile(optimizer='adam', loss='categorical_crossentropy', metrics ='acc') 
 #since its a classifier problem, categorical crossentropy is chosen`
